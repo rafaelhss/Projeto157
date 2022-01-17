@@ -2,9 +2,57 @@
   <head>
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+
+    <style type="text/css">
+    body{
+        font-family: "Comic Sans MS", sans-serif;
+    }
+    .modal {
+        position: absolute;
+        left: 2%;
+        z-index: 999;
+    }
+    
+</style>
+
   </head>
   <body>
   
+  <audio id="myAudio" loop>
+  <source src="sound/splash.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<script>
+var x = document.getElementById("myAudio"); 
+
+
+
+pauseAudio = function() { 
+  x.pause(); 
+  var btn = document.getElementById("btnsound"); 
+  btn.src = "img/btnsound.png";
+  btn.onclick = playAudio;
+} 
+
+playAudio = function() { 
+  x.play(); 
+  var btn = document.getElementById("btnsound"); 
+  btn.src = "img/btnnosound.png";
+  btn.onclick = pauseAudio;
+} 
+
+
+
+
+
+</script>
+  <div class="modal">
+    <div id="text">
+        <div>
+        <img width="50px" height="50px" src="img/btnsound.png" id="btnsound" onclick="playAudio();" type="button">
+        </div>
+    </div>
+  </div>
     <a-scene>
         <a-assets>
             <img id="asfaltoimg" src="img/asfalto.jpg" crossorigin="anonymous" />
