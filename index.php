@@ -18,30 +18,91 @@
   </head>
   <body>
   
-  <audio id="myAudio" loop>
-  <source src="sound/splash.mp3" type="audio/mpeg">
+  <audio id="vocal">
+  <source src="sound/vocal.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<audio id="instrumental" loop>
+  <source src="sound/instrumental.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 <script>
-var x = document.getElementById("myAudio"); 
+var vocal = document.getElementById("vocal"); 
+
+function moveCam(x, y, z, r, d){
+    var cam = document.getElementById("cam"); 
+    cam.setAttribute("animation__1", "property: position; to: "+x+" "+y+" "+z+"; dur: "+d+"; easing: easeInOutQuad; loop: false;");
+    cam.setAttribute("animation__2", "property: rotation; to: 0 "+r+" 0; dur: "+d+"; easing: easeInOutQuad; loop: false;");
+  
+}
 
 
 
-pauseAudio = function() { 
-  x.pause(); 
-  var btn = document.getElementById("btnsound"); 
-  btn.src = "img/btnsound.png";
-  btn.onclick = playAudio;
-} 
 
-playAudio = function() { 
-  x.play(); 
-  var btn = document.getElementById("btnsound"); 
-  btn.src = "img/btnnosound.png";
-  btn.onclick = pauseAudio;
-} 
+var count = 30;
+rndCam = function(){
+    
+    document.getElementById("btn").style.visibility='hidden'; 
+    vocal.play();
+
+     
+
+    setTimeout(function(){moveCam(-7.57, 2, -4.33, -43, 3000);}, 2420);   
+    setTimeout(function(){moveCam(8.43, 2, 4.52, -156, 8000);}, 8190);   
+    setTimeout(function(){moveCam(-1.44, 2, 11, -109, 5000);}, 18020);   
+    setTimeout(function(){moveCam(-3.68, 2, 9.23, -224, 4000);}, 24380);   
+    setTimeout(function(){moveCam(-2.85, 2, 1.46, -79.9, 2000);}, 29390);   
+    setTimeout(function(){moveCam(24.85, 2, -5.9, -9.39, 4000);}, 33490);   
+    setTimeout(function(){moveCam(33.86, 2, -35, -116, 4000);}, 41090);   
+    setTimeout(function(){moveCam(92.83, 2, -33, -191, 5000);}, 47060);   
+    setTimeout(function(){
+        vocal.pause(); 
+        document.getElementById("instrumental").play();
+        cam = document.getElementById("cam");
+        cam.setAttribute("look-controls", "");
+        cam.setAttribute("wasd-controls", "");
+        }, 54260);   
+ 
 
 
+    // switch(count) {
+    // case 0:
+    //     moveCam(-7.57, 2, -4.33, -43, 3000);
+    //     count++;
+    //     break;
+    //     case 1:
+    //     moveCam(8.43, 2, 4.52, -156, 5000);
+    //     count++;
+    //     break;
+    //     case 2:
+    //     moveCam(-1.44, 2, 11, -109, 5000);
+    //     count++;
+    //     break;
+    //     case 3:
+    //     moveCam(-3.68, 2, 9.23, -224, 5000);
+    //     count++;
+    //     break;
+    //     case 4:
+    //     moveCam(-2.85, 2, 1.46, -79.9, 5000);
+    //     count++;
+    //     break;
+    //     case 5:
+    //     moveCam(24.85, 2, -5.9, -9.39, 5000);
+    //     count++;
+    //     break;
+    //     case 6:
+    //     moveCam(33.86, 2, -35, -116, 5000);
+    //     count++;
+    //     break;
+    //     case 7:
+    //     moveCam(92.83, 2, -33, -191, 5000);
+    //     count++;
+    //     break;
+    // default:
+    //     moveCam(8.25, 2, -0.67);
+    //     count=0;
+    // }
+}
 
 
 
@@ -49,7 +110,8 @@ playAudio = function() {
   <div class="modal">
     <div id="text">
         <div>
-        <img width="50px" height="50px" src="img/btnsound.png" id="btnsound" onclick="playAudio();" type="button">
+       <!-- <img width="50px" height="50px" src="img/btnsound.png" id="btnsound" onclick="playAudio();" type="button">-->
+        <button id="btn" onclick="rndCam()">Play!</button>
         </div>
     </div>
   </div>
@@ -115,6 +177,11 @@ playAudio = function() {
             <img id="horaimg" src="img/hora.png" crossorigin="anonymous" />
             
             <img id="cartazimg" src="img/cartaz.jpg" crossorigin="anonymous" />
+            <img id="rastaimg" src="img/rasta.jpeg" crossorigin="anonymous" />
+            
+            <img id="marimg" src="img/mar.jpeg" crossorigin="anonymous" />
+            
+            <img id="areiaimg" src="img/areia.jpg" crossorigin="anonymous" />
             
 
         </a-assets> 
@@ -123,9 +190,61 @@ playAudio = function() {
         <a-entity environment="preset: default; ground: none;"></a-entity>
 
 
-        <a-entity id="cam" camera look-controls wasd-controls position="8.25 2 -0.67"> 
+     <!--  <a-entity id="cam" camera look-controls wasd-controls position="8 2 0">  -->
+         <a-entity id="cam" camera  position="8 2 0">
         </a-entity>
 
+
+        <!-- praia e maconha -->
+        <a-box  id="praia" position="83 0 -30" rotation="0 270 0" width="0.001" height="0.001" depth="0.001">
+        <a-plane id="mar"
+                position="0 0.3 -110"
+                rotation="-90 0 0" 
+                width="250" height="200"
+                 material="opacity: 1; src: #marimg; repeat: 5 5;"
+                animation="property: height; to: 190; from: 200; dur: 3000; easing: linear; loop: true; dir:alternate">
+            </a-plane>
+            <a-plane id="areia"
+                position="0 0 -10"
+                rotation="90 0 0" 
+                width="250" height="20"
+                side="double"
+                material="opacity: 1; src: #areiaimg; repeat: 50 5;">
+            </a-plane>
+            <a-box position="0 0.6 -5" material="opacity:0" rotation="0 0 0">
+                <a-sphere radius="0.5" position="0 1 0">
+                <a-cylinder radius="0.03" height="0.3" position="0 -0.35 -0.45" rotation="70 0 20"></a-cylinder>
+                </a-sphere>
+                <a-box width="0.5" height="1" depth="0.5" 
+                material="opacity: 1; src: #rastaimg; repeat: 1 1;"></a-box>
+                <a-box 
+                color="#86592d" rotation="90 0 0" position="0.1 -0.5 -0.25" width="0.19" height="1" depth="0.19"></a-box>
+                <a-box 
+                color="#86592d" rotation="90 0 0" position="-0.1 -0.5 -0.25" width="0.19" height="1" depth="0.19"></a-box>
+            </a-box>
+            <a-box position="-1 0.6 -5" material="opacity:0" rotation="0 0 0">
+                <a-sphere radius="0.5" position="0 1 0"></a-sphere>
+                <a-cone width="0.4" height="1" depth="0.4" radius-bottom="0.4" radius-top="0.1" 
+                color="#eb3480"></a-cone>
+                <a-box 
+                color="#86592d" rotation="90 0 0" position="0.1 -0.5 -0.25" width="0.19" height="1" depth="0.19"></a-box>
+                <a-box 
+                color="#86592d" rotation="90 0 0" position="-0.1 -0.5 -0.25" width="0.19" height="1" depth="0.19"></a-box>
+            </a-box>
+            <a-box position="1 0.6 -5" material="opacity:0" rotation="0 0 0">
+                <a-sphere radius="0.5" position="0 1 0"></a-sphere>
+                <a-cone width="0.4" height="1" depth="0.4" radius-bottom="0.4" radius-top="0.1" 
+                color="#b134eb"></a-cone>
+                <a-box 
+                color="#86592d" rotation="90 0 0" position="0.1 -0.5 -0.25" width="0.19" height="1" depth="0.19"></a-box>
+                <a-box 
+                color="#86592d" rotation="90 0 0" position="-0.1 -0.5 -0.25" width="0.19" height="1" depth="0.19"></a-box>
+            </a-box>
+
+        </a-box>
+        
+
+        
        
         <!-- caminhao da light -->
         <a-obj-model id="light" position="19.35166 -0.03441 12.16452" rotation="270 270 0" scale="" src="#caminhao-obj" material="" obj-model="">
@@ -273,7 +392,7 @@ playAudio = function() {
 
         <a-plane id="piso" position="0 -0.1 0" 
             rotation="-90 0 0" 
-            width="2000" height="2000"
+            width="200" height="200"
             material="opacity: 1; src: #pisoimg; repeat: 500 500;">
         </a-plane>
         
